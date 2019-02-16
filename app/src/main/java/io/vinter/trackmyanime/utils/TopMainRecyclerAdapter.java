@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -48,8 +49,15 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
     public void onBindViewHolder(@NonNull TopMainRecyclerViewHolder holder, int i) {
         TopHorizontalRecyclerAdapter adapter = new TopHorizontalRecyclerAdapter(context,
                 animeTopList.get(i).first.subList(0, 10), animeClickListener);
-        holder.horizontalRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        holder.horizontalRecycler.setLayoutManager(mLayoutManager);
         holder.horizontalRecycler.setAdapter(adapter);
+        holder.horizontalRecycler.setNestedScrollingEnabled(false);
         holder.topTypeButton.setText(animeTopList.get(i).second);
     }
 

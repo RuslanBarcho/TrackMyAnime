@@ -66,16 +66,6 @@ public class TopFragment extends Fragment {
             }
         });
 
-        recyclerView.setOnTouchListener((v, event) -> {
-            recyclerView.setNestedScrollingEnabled(false);
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_UP:
-                    recyclerView.setNestedScrollingEnabled(true);
-                    break;
-            }
-            return false;
-        });
-
         return mRootView;
     }
 
