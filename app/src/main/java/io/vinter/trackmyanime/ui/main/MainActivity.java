@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mTextMessage = findViewById(R.id.message);
@@ -56,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        this.getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
-
-        //viewModel.getAnimeTop("upcoming", 1);
     }
 
     private void showAndHideFragments(String tagShow, String tagHideFirst, String tagHideSecond){

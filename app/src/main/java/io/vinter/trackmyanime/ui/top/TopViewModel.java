@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,6 +18,8 @@ import io.vinter.trackmyanime.network.service.AnimeService;
 public class TopViewModel extends ViewModel {
 
     public MutableLiveData<List<AnimeTop>> topUpcoming = new MutableLiveData<>();
+    public MutableLiveData<List<List<AnimeTop>>> tops = new MutableLiveData<>();
+    List<List<AnimeTop>> animeTopList = new ArrayList<>();
 
     @SuppressLint("CheckResult")
     public void getAnimeTop(String type, int page){
@@ -30,5 +33,24 @@ public class TopViewModel extends ViewModel {
                 }, e -> {
                     Log.e("Network", e.getMessage());
                 });
+    }
+
+    @SuppressLint("CheckResult")
+    public void getAnimeTops(String[] types){
+        animeTopList.clear();
+        for (String type: types){
+            NetModule.getRetrofit().create(AnimeService.class)
+                    .getAnimeTop(1, type)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(Top::getTop)
+                    .subscribe(list -> {
+                        animeTopList.add(list);
+                        tops.postValue(animeTopList);
+                    }, e -> {
+                        Log.e("Network", e.getMessage());
+                    });
+        }
+
     }
 }

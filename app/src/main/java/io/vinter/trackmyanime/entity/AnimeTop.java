@@ -36,7 +36,7 @@ public class AnimeTop {
     private Integer members;
     @SerializedName("score")
     @Expose
-    private Integer score;
+    private Double score;
 
     public Integer getMalId() {
         return malId;
@@ -118,11 +118,11 @@ public class AnimeTop {
         this.members = members;
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 
