@@ -14,6 +14,7 @@
         android:layout_height="135dp"
         android:layout_gravity="center"
         android:layout_marginBottom="6dp"
+        android:foreground="@drawable/image_ripple"
         app:srcCompat="@color/colorInactive" />
 
     <TextView

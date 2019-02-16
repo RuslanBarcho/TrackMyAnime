@@ -1,10 +1,12 @@
-package io.vinter.trackmyanime.entity;
+package io.vinter.trackmyanime.entity.search;
+
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Top {
+
+public class Search {
 
     @SerializedName("request_hash")
     @Expose
@@ -15,9 +17,12 @@ public class Top {
     @SerializedName("request_cache_expiry")
     @Expose
     private Integer requestCacheExpiry;
-    @SerializedName("top")
+    @SerializedName("results")
     @Expose
-    private List<AnimeTop> top = null;
+    private List<Result> results = null;
+    @SerializedName("last_page")
+    @Expose
+    private Integer lastPage;
 
     public String getRequestHash() {
         return requestHash;
@@ -43,12 +48,20 @@ public class Top {
         this.requestCacheExpiry = requestCacheExpiry;
     }
 
-    public List<AnimeTop> getTop() {
-        return top;
+    public List<Result> getResults() {
+        return results;
     }
 
-    public void setTop(List<AnimeTop> top) {
-        this.top = top;
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
+    public Integer getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(Integer lastPage) {
+        this.lastPage = lastPage;
     }
 
 }

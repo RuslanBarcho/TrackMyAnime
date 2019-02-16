@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import java.util.List;
 
 import io.vinter.trackmyanime.R;
-import io.vinter.trackmyanime.entity.AnimeTop;
+import io.vinter.trackmyanime.entity.top.AnimeTop;
 
 public class TopHorizontalRecyclerAdapter extends RecyclerView.Adapter<TopHorizontalRecyclerAdapter.TopHorizontalRecyclerViewHolder> {
 

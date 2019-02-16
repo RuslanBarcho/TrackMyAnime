@@ -1,4 +1,4 @@
-package io.vinter.trackmyanime.entity;
+package io.vinter.trackmyanime.entity.top;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

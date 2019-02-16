@@ -9,19 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+
 import com.chauthai.overscroll.RecyclerViewBouncy;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import io.vinter.trackmyanime.R;
-import io.vinter.trackmyanime.entity.AnimeTop;
+import io.vinter.trackmyanime.entity.top.AnimeTop;
 
 public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecyclerAdapter.TopMainRecyclerViewHolder> {
 
