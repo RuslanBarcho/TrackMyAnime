@@ -23,11 +23,14 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
     private Context context = null;
     private List<List<AnimeTop>>  animeTopList;
     private String[] names;
+    ItemClickListener animeClickListener;
 
-    public TopMainRecyclerAdapter(Context context, List<List<AnimeTop>> list, String[] names){
+    public TopMainRecyclerAdapter(Context context, List<List<AnimeTop>> list, String[] names,
+                                  ItemClickListener animeClickListener){
         this.context = context;
         this.animeTopList = list;
         this.names = names;
+        this.animeClickListener = animeClickListener;
     }
 
     @NonNull
@@ -40,7 +43,8 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
 
     @Override
     public void onBindViewHolder(@NonNull TopMainRecyclerViewHolder holder, int i) {
-        TopHorizontalRecyclerAdapter adapter = new TopHorizontalRecyclerAdapter(context, animeTopList.get(i).subList(0, 10));
+        TopHorizontalRecyclerAdapter adapter = new TopHorizontalRecyclerAdapter(context,
+                animeTopList.get(i).subList(0, 10), animeClickListener);
         holder.horizontalRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.horizontalRecycler.setAdapter(adapter);
         holder.topTypeButton.setText(names[i]);

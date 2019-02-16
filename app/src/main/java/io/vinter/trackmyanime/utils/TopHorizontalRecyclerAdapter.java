@@ -20,10 +20,12 @@ public class TopHorizontalRecyclerAdapter extends RecyclerView.Adapter<TopHorizo
 
     private Context context = null;
     private List<AnimeTop> animeTopList;
+    ItemClickListener listener;
 
-    public TopHorizontalRecyclerAdapter(Context context, List<AnimeTop> list){
+    public TopHorizontalRecyclerAdapter(Context context, List<AnimeTop> list, ItemClickListener listener){
         this.context = context;
         this.animeTopList = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,6 +46,9 @@ public class TopHorizontalRecyclerAdapter extends RecyclerView.Adapter<TopHorizo
                 .error(R.color.colorInactive)
                 .transforms(new CenterCrop(), new RoundedCorners(15))
                 .into(holder.art);
+        holder.art.setOnClickListener(view -> {
+            listener.onItemClick(view, animeTopList.get(i).getMalId());
+        });
     }
 
     @Override

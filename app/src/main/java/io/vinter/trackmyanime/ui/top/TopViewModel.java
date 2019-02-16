@@ -46,7 +46,7 @@ public class TopViewModel extends ViewModel {
                     .map(Top::getTop)
                     .subscribe(list -> {
                         animeTopList.add(list);
-                        tops.postValue(animeTopList);
+                        if (animeTopList.size() == types.length) tops.postValue(animeTopList);
                     }, e -> {
                         Log.e("Network", e.getMessage());
                     });
