@@ -20,6 +20,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
+import io.vinter.trackmyanime.utils.recycler.MainVerticalRecyclerView;
 import io.vinter.trackmyanime.utils.TopMainRecyclerAdapter;
 
 /**
@@ -33,7 +34,7 @@ public class TopFragment extends Fragment {
     final String[] types = {"upcoming", "airing", "ova", "special", "movie"};
 
     @BindView(R.id.recyclerUpcoming)
-    RecyclerView recyclerView;
+    MainVerticalRecyclerView recyclerView;
 
     @BindView(R.id.topProgressBar)
     ProgressBar progressBar;
@@ -52,6 +53,22 @@ public class TopFragment extends Fragment {
         ButterKnife.bind(this, mRootView);
 
         if (viewModel.tops.getValue() == null) viewModel.getAnimeTops(types);
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_SETTLING) {
+                    recyclerView.stopScroll();
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) { }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) { }
+        });
 
         viewModel.tops.observe(this, tops -> {
             if (tops != null){

@@ -19,7 +19,7 @@
         android:paddingRight="10dp"
         android:text="button" />
 
-    <com.chauthai.overscroll.RecyclerViewBouncy
+    <io.vinter.trackmyanime.utils.recycler.ChildHorizontalRecyclerView
         android:id="@+id/horizontalRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

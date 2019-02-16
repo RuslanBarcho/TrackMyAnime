@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.chauthai.overscroll.RecyclerViewBouncy;
-
 import java.util.Collections;
 import java.util.List;
 
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.entity.top.AnimeTop;
+import io.vinter.trackmyanime.utils.recycler.ChildHorizontalRecyclerView;
 
 public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecyclerAdapter.TopMainRecyclerViewHolder> {
 
@@ -63,7 +62,7 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
 
     public static class TopMainRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        RecyclerViewBouncy horizontalRecycler;
+        ChildHorizontalRecyclerView horizontalRecycler;
         Button topTypeButton;
 
         public TopMainRecyclerViewHolder(@NonNull View itemView) {
