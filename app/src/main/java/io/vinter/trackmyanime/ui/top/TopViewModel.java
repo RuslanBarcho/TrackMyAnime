@@ -3,6 +3,7 @@ package io.vinter.trackmyanime.ui.top;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ import io.vinter.trackmyanime.network.service.AnimeService;
 public class TopViewModel extends ViewModel {
 
     public MutableLiveData<List<AnimeTop>> topUpcoming = new MutableLiveData<>();
-    public MutableLiveData<List<List<AnimeTop>>> tops = new MutableLiveData<>();
-    List<List<AnimeTop>> animeTopList = new ArrayList<>();
+    public MutableLiveData<List<Pair<List<AnimeTop>, String>>> tops = new MutableLiveData<>();
+    List<Pair<List<AnimeTop>, String>> animeTopList = new ArrayList<>();
 
     @SuppressLint("CheckResult")
     public void getAnimeTop(String type, int page){
@@ -45,7 +46,7 @@ public class TopViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .map(Top::getTop)
                     .subscribe(list -> {
-                        animeTopList.add(list);
+                        animeTopList.add(new Pair<>(list, type));
                         if (animeTopList.size() == types.length) tops.postValue(animeTopList);
                     }, e -> {
                         Log.e("Network", e.getMessage());

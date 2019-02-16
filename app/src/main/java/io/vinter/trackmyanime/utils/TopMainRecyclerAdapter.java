@@ -2,6 +2,7 @@ package io.vinter.trackmyanime.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.chauthai.overscroll.RecyclerViewBouncy;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.vinter.trackmyanime.R;
@@ -21,15 +25,14 @@ import io.vinter.trackmyanime.entity.AnimeTop;
 public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecyclerAdapter.TopMainRecyclerViewHolder> {
 
     private Context context = null;
-    private List<List<AnimeTop>>  animeTopList;
-    private String[] names;
+    private List<Pair<List<AnimeTop>, String>> animeTopList;
     ItemClickListener animeClickListener;
 
-    public TopMainRecyclerAdapter(Context context, List<List<AnimeTop>> list, String[] names,
+    public TopMainRecyclerAdapter(Context context, List<Pair<List<AnimeTop>, String>> list,
                                   ItemClickListener animeClickListener){
+        Collections.sort(list, (listStringPair, t1) -> listStringPair.second.compareTo(t1.second));
         this.context = context;
         this.animeTopList = list;
-        this.names = names;
         this.animeClickListener = animeClickListener;
     }
 
@@ -44,10 +47,10 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
     @Override
     public void onBindViewHolder(@NonNull TopMainRecyclerViewHolder holder, int i) {
         TopHorizontalRecyclerAdapter adapter = new TopHorizontalRecyclerAdapter(context,
-                animeTopList.get(i).subList(0, 10), animeClickListener);
+                animeTopList.get(i).first.subList(0, 10), animeClickListener);
         holder.horizontalRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.horizontalRecycler.setAdapter(adapter);
-        holder.topTypeButton.setText(names[i]);
+        holder.topTypeButton.setText(animeTopList.get(i).second);
     }
 
     @Override
@@ -57,7 +60,7 @@ public class TopMainRecyclerAdapter extends RecyclerView.Adapter<TopMainRecycler
 
     public static class TopMainRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        RecyclerView horizontalRecycler;
+        RecyclerViewBouncy horizontalRecycler;
         Button topTypeButton;
 
         public TopMainRecyclerViewHolder(@NonNull View itemView) {
