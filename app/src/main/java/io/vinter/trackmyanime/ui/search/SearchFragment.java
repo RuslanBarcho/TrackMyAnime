@@ -2,6 +2,7 @@ package io.vinter.trackmyanime.ui.search;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.vinter.trackmyanime.R;
+import io.vinter.trackmyanime.ui.detail.DetailActivity;
 import io.vinter.trackmyanime.ui.top.TopViewModel;
 import io.vinter.trackmyanime.utils.AnimeNormalRecyclerAdapter;
 import io.vinter.trackmyanime.utils.ItemClickListener;
@@ -82,7 +84,9 @@ public class SearchFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
                 adapter = new AnimeNormalRecyclerAdapter(getContext(), results, (v, position) -> {
-                    //TODO: сделать слушатель нажатий
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("malId", position);
+                    getActivity().startActivityForResult(intent, 22);
                 });
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);

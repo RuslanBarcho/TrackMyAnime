@@ -3,6 +3,7 @@ package io.vinter.trackmyanime.ui.top;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
+import io.vinter.trackmyanime.ui.detail.DetailActivity;
 import io.vinter.trackmyanime.utils.recycler.MainVerticalRecyclerView;
 import io.vinter.trackmyanime.utils.TopMainRecyclerAdapter;
 
@@ -52,7 +54,7 @@ public class TopFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(TopViewModel.class);
         ButterKnife.bind(this, mRootView);
 
-        if (viewModel.tops.getValue() == null) viewModel.getAnimeTops(types);
+        if (viewModel.tops.getValue() == null & savedInstanceState == null) viewModel.getAnimeTops(types);
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -74,7 +76,9 @@ public class TopFragment extends Fragment {
             if (tops != null){
                 progressBar.setVisibility(View.GONE);
                 adapter = new TopMainRecyclerAdapter(getContext(), tops, (v, position) -> {
-                    Toast.makeText(getContext(), "Anime with ID: " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("malId", position);
+                    getActivity().startActivityForResult(intent, 22);
                 });
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);

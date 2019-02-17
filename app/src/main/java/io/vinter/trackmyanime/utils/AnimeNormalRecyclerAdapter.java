@@ -21,7 +21,7 @@ public class AnimeNormalRecyclerAdapter extends RecyclerView.Adapter<AnimeNormal
 
     private Context context = null;
     private List<Result> animeList;
-    ItemClickListener animeClickListener;
+    private ItemClickListener animeClickListener;
 
     public AnimeNormalRecyclerAdapter(Context context, List<Result> list, ItemClickListener animeClickListener){
         this.context = context;
@@ -46,7 +46,9 @@ public class AnimeNormalRecyclerAdapter extends RecyclerView.Adapter<AnimeNormal
                 .error(R.color.colorInactive)
                 .transforms(new CenterCrop(), new RoundedCorners(15))
                 .into(holder.art);
-
+        holder.art.setOnClickListener(view -> {
+            animeClickListener.onItemClick(view, animeList.get(i).getMalId());
+        });
         holder.title.setText(animeList.get(i).getTitle());
 
         if (animeList.get(i).getEpisodes() != 0) holder.eps.setText(String.valueOf(animeList.get(i).getEpisodes()));

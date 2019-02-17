@@ -18,25 +18,32 @@ import io.vinter.trackmyanime.network.service.AnimeService;
 
 public class TopViewModel extends ViewModel {
 
-    public MutableLiveData<List<AnimeTop>> topUpcoming = new MutableLiveData<>();
     public MutableLiveData<List<Pair<List<AnimeTop>, String>>> tops = new MutableLiveData<>();
     List<Pair<List<AnimeTop>, String>> animeTopList = new ArrayList<>();
 
     @SuppressLint("CheckResult")
     public void getAnimeTops(String[] types){
         animeTopList.clear();
-        for (String type: types){
-            NetModule.getRetrofit().create(AnimeService.class)
-                    .getAnimeTop(1, type)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map(Top::getTop)
-                    .subscribe(list -> {
-                        animeTopList.add(new Pair<>(list, type));
-                        if (animeTopList.size() == types.length) tops.postValue(animeTopList);
-                    }, e -> {
-                        Log.e("Network", e.getMessage());
-                    });
-        }
+        loadTops(types, 0);
     }
+
+    @SuppressLint("CheckResult")
+    private void loadTops(String[] types, int i){
+        NetModule.getRetrofit().create(AnimeService.class)
+                .getAnimeTop(1, types[i])
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(Top::getTop)
+                .subscribe(list -> {
+                    animeTopList.add(new Pair<>(list, types[i]));
+                    if (animeTopList.size() == types.length) {
+                        tops.postValue(animeTopList);
+                    } else {
+                        loadTops(types, i + 1);
+                    }
+                }, e -> {
+                    Log.e("Network", e.getMessage());
+                });
+    }
+
 }

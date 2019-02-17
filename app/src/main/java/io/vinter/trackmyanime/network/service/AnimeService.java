@@ -3,6 +3,7 @@ package io.vinter.trackmyanime.network.service;
 import java.util.Map;
 
 import io.reactivex.Single;
+import io.vinter.trackmyanime.entity.detail.Anime;
 import io.vinter.trackmyanime.entity.search.Search;
 import io.vinter.trackmyanime.entity.top.Top;
 import retrofit2.http.GET;
@@ -16,4 +17,7 @@ public interface AnimeService {
 
     @GET("search/anime?")
     Single<Search> searchAnime(@Query("q") String q, @Query("page") int page);
+
+    @GET("/anime/{malId}")
+    Single<Anime> getAnimeDetail(@Path("malId") int malId);
 }
