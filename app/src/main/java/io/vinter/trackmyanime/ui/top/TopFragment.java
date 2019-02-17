@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +25,7 @@ import io.vinter.trackmyanime.utils.recycler.MainVerticalRecyclerView;
 import io.vinter.trackmyanime.utils.TopMainRecyclerAdapter;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment for display anime tops
  */
 public class TopFragment extends Fragment {
 

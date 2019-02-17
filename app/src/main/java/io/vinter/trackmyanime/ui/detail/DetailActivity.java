@@ -3,18 +3,16 @@ package io.vinter.trackmyanime.ui.detail;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.elyeproj.loaderviewlibrary.LoaderTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.vinter.trackmyanime.R;
-import io.vinter.trackmyanime.ui.main.MainViewModel;
 import io.vinter.trackmyanime.utils.GlideApp;
 
 public class DetailActivity extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     DetailViewModel viewModel;
 
     @BindView(R.id.animeDetailPicture)
-    ImageView art;
+    LoaderImageView art;
 
     @BindView(R.id.animeDetailTitle)
     LoaderTextView title;

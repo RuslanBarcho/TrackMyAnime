@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,18 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Toast;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.ui.detail.DetailActivity;
-import io.vinter.trackmyanime.ui.top.TopViewModel;
 import io.vinter.trackmyanime.utils.AnimeNormalRecyclerAdapter;
-import io.vinter.trackmyanime.utils.ItemClickListener;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment for search anime by title
  */
 public class SearchFragment extends Fragment {
 
@@ -63,6 +61,7 @@ public class SearchFragment extends Fragment {
         ButterKnife.bind(this, mRootView);
         viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
 
+        searchView.setQueryHint(getResources().getStringArray(R.array.search_hints)[new Random().nextInt(7)]);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

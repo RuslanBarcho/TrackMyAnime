@@ -3,7 +3,17 @@
     <string name="title_top">Top</string>
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string-array name="search_hints">
+        <item>Sword Art Online</item>
+        <item>JoJo</item>
+        <item>Death Note</item>
+        <item>Kimi no Na wa</item>
+        <item>Kono Subarashi</item>
+        <item>Akame ga Kill!</item>
+        <item>Evangelion</item>
+    </string-array>
+    
 </resources>

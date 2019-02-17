@@ -59,7 +59,7 @@
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp">
 
-                <ImageView
+                <com.elyeproj.loaderviewlibrary.LoaderImageView
                     android:id="@+id/animeDetailPicture"
                     android:layout_width="100dp"
                     android:layout_height="135dp"
@@ -67,8 +67,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="24dp"
                     android:layout_weight="0"
-                    android:foreground="@drawable/image_ripple"
-                    app:srcCompat="@color/colorInactive" />
+                    android:foreground="@drawable/image_ripple"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
