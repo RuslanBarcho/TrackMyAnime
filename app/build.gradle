@@ -55,4 +55,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     implementation 'com.elyeproj.libraries:loaderviewlibrary:1.5.0'
+
+    implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
 }

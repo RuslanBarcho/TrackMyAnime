@@ -3,9 +3,9 @@
     <string name="title_top">Top</string>
     <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
-    
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
     <string-array name="search_hints">
         <item>Sword Art Online</item>
         <item>JoJo</item>
@@ -15,5 +15,5 @@
         <item>Akame ga Kill!</item>
         <item>Evangelion</item>
     </string-array>
-    
+
 </resources>
