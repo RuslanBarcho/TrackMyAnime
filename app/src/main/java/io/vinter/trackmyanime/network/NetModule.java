@@ -19,4 +19,16 @@ public class NetModule {
                 .baseUrl("https://api.jikan.moe/v3/")
                 .build();
     }
+
+    public static Retrofit getAnimeListModule() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
+        return new Retrofit.Builder()
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://192.168.3.128:3000/")
+                .build();
+    }
 }
