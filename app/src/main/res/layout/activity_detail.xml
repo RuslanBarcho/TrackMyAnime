@@ -109,14 +109,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0">
 
-                <TextView
-                    android:id="@+id/animeDetailAdd"
-                    android:layout_width="0dp"
+                <Button
+                    android:id="@+id/animeDetailAddToList"
+                    android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
+                    android:background="@drawable/controls_active"
+                    android:foreground="@drawable/ic_add" />
+
+                <Button
+                    android:id="@+id/animeDetailAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toStartOf="@+id/animeDetailAddToList"
                     android:background="@drawable/controls_active"
                     android:drawableLeft="@drawable/ic_episodes"
                     android:drawablePadding="8dp"
@@ -134,6 +145,7 @@
                     android:layout_height="36dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/controls_active"
                     android:drawableLeft="@drawable/ic_score"
@@ -156,6 +168,7 @@
                     android:layout_marginTop="16dp"
                     android:minLines="4"
                     android:minWidth="100dp" />
+
             </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -1,6 +1,7 @@
 package io.vinter.trackmyanime.ui.main;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,6 @@ import io.vinter.trackmyanime.ui.top.TopFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     MainViewModel viewModel;
     FragmentManager fragmentManager;
 
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mTextMessage = findViewById(R.id.message);
         BottomNavigationView navigation = findViewById(R.id.navigation);
 
         fragmentManager = getSupportFragmentManager();
@@ -65,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 .hide(Objects.requireNonNull(fragmentManager.findFragmentByTag(tagHideFirst)))
                 .hide(Objects.requireNonNull(fragmentManager.findFragmentByTag(tagHideSecond)))
                 .commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case 22:
+                ((ProfileFragment) Objects.requireNonNull(fragmentManager.findFragmentByTag("profile"))).update(true);
+        }
     }
 
 }

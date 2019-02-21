@@ -75,11 +75,9 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="20" />
-                            <entry key="outputName" value="ic_score" />
+                            <entry key="outputName" value="ic_add" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="E:\Work Folders\TrackMyAnime\Drawables\score.svg" />
-                            <entry key="width" value="20" />
+                            <entry key="sourceFile" value="E:\Work Folders\TrackMyAnime\Drawables\add.svg" />
                           </map>
                         </option>
                       </PersistentState>

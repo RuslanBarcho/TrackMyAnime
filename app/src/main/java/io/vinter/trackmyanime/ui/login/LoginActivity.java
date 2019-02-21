@@ -15,6 +15,7 @@ import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.network.form.LoginForm;
 import io.vinter.trackmyanime.ui.main.MainActivity;
 import io.vinter.trackmyanime.ui.main.MainViewModel;
+import io.vinter.trackmyanime.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.login_button)
     public void login(){
         viewModel.getToken(new LoginForm(loginField.getText().toString(), passwordField.getText().toString()));
+    }
+
+    @OnClick(R.id.register_button)
+    void launchRegister(){
+        Intent switchToRegister = new Intent(this, RegisterActivity.class);
+        this.startActivityForResult(switchToRegister, 1);
     }
 
     LoginViewModel viewModel;
