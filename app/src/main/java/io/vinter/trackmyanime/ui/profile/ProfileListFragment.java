@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.view.animation.LayoutAnimationController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +25,7 @@ import io.vinter.trackmyanime.utils.AnimeListRecyclerAdapter;
 import io.vinter.trackmyanime.utils.ItemClickListener;
 
 /**
- * A simple {@link Fragment} subclass.
+ * dynamic page which show one of user's lists
  */
 public class ProfileListFragment extends Fragment {
 

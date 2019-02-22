@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +24,6 @@ import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
 import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
-import io.vinter.trackmyanime.entity.detail.To;
-import io.vinter.trackmyanime.ui.search.SearchViewModel;
-import io.vinter.trackmyanime.utils.ItemClickListener;
 import io.vinter.trackmyanime.utils.ProfileViewPagerAdapter;
 
 /**
@@ -104,15 +99,11 @@ public class ProfileFragment extends Fragment {
         return mRootView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-
-    }
-
     private void addEpisode(List<AnimeListItem> animeListItems, int position){
         for(AnimeListItem item: animeListItems){
             if (item.getMalId() == position){
                 item.setWatchedEps(item.getWatchedEps() + 1);
+                if (item.getEps() != 0 & item.getEps() <= item.getWatchedEps()) item.setStatus("completed");
                 viewModel.updateAnime(preferences.getString("token", ""), item, db);
             }
         }

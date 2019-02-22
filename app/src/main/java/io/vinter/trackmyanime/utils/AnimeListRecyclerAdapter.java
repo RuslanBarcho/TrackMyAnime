@@ -55,6 +55,7 @@ public class AnimeListRecyclerAdapter extends RecyclerView.Adapter<AnimeListRecy
         holder.title.setText(animeList.get(i).getTitle());
         holder.eps.setText(String.valueOf(animeList.get(i).getWatchedEps() + "/" + animeList.get(i).getEps()));
         holder.status.setText(animeList.get(i).getStatus());
+        //if (animeList.get(i).getEps() <= animeList.get(i).getWatchedEps()) holder.add.setVisibility(View.GONE);
         holder.add.setOnClickListener(view -> {
             addClickListener.onItemClick(view, animeList.get(i).getMalId());
         });
