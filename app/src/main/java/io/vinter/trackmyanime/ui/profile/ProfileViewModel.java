@@ -3,6 +3,7 @@ package io.vinter.trackmyanime.ui.profile;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.List;
@@ -22,7 +23,6 @@ public class ProfileViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     public void getAnimeList(String token, AppDatabase db){
-        if (db.animeListDAO().getAnimeList().size() > 0) animes.postValue(db.animeListDAO().getAnimeList());
         NetModule.getAnimeListModule().create(AnimeService.class)
                 .getAnimeList("Bearer " + token)
                 .subscribeOn(Schedulers.io())
@@ -32,6 +32,7 @@ public class ProfileViewModel extends ViewModel {
                     updateDatabase(db, animes);
                     this.animes.postValue(animes);
                 }, e -> {
+                    animes.postValue(db.animeListDAO().getAnimeList());
                     Log.e("Network", e.getMessage());
                 });
     }
