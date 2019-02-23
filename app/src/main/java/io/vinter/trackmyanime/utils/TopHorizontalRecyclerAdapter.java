@@ -18,7 +18,7 @@ import io.vinter.trackmyanime.entity.top.AnimeTop;
 
 public class TopHorizontalRecyclerAdapter extends RecyclerView.Adapter<TopHorizontalRecyclerAdapter.TopHorizontalRecyclerViewHolder> {
 
-    private Context context = null;
+    private Context context;
     private List<AnimeTop> animeTopList;
     ItemClickListener listener;
 

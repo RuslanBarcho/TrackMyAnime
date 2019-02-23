@@ -121,8 +121,8 @@
                     android:foreground="@drawable/ic_add" />
 
                 <Button
-                    android:id="@+id/animeDetailAdd"
-                    android:layout_width="0dp"
+                    android:id="@+id/animeDetailUserEps"
+                    android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
@@ -137,7 +137,8 @@
                     android:paddingRight="16dp"
                     android:text="TextView"
                     android:textColor="@android:color/background_light"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
 
                 <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/animeDetailScore"
@@ -163,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/animeDetailScore"
-                    android:layout_below="@+id/animeDetailAdd"
+                    android:layout_below="@+id/animeDetailUserEps"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:minLines="4"

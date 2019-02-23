@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -28,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     AppDatabase db;
     boolean inList = false;
     SharedPreferences preferences;
+    AnimeListItem animeListItem;
 
     @BindView(R.id.animeDetailPicture)
     LoaderImageView art;
@@ -46,6 +49,9 @@ public class DetailActivity extends AppCompatActivity {
 
     @BindView(R.id.animeDetailDescription)
     LoaderTextView  description;
+
+    @BindView(R.id.animeDetailUserEps)
+    Button userEpisodes;
 
     @OnClick(R.id.animeDetailAddToList)
     void addToList(){
@@ -77,6 +83,8 @@ public class DetailActivity extends AppCompatActivity {
 
         if (db.animeListDAO().getAnimeByMalID(malId) != null){
             inList = true;
+            animeListItem = db.animeListDAO().getAnimeByMalID(malId);
+            configUserEpisodes(animeListItem);
         }
 
         viewModel.animeDetail.observe(this, anime -> {
@@ -96,12 +104,20 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.objectId.observe(this, id -> {
-            if (id != null){
+        viewModel.insertedAnime.observe(this, insertedAnime -> {
+            if (insertedAnime != null){
+                inList = true;
+                animeListItem = insertedAnime;
                 Toast.makeText(this, "Added to your list", Toast.LENGTH_SHORT).show();
                 this.setResult(22);
+                configUserEpisodes(insertedAnime);
             }
         });
 
+    }
+
+    private void configUserEpisodes(AnimeListItem item){
+        userEpisodes.setVisibility(View.VISIBLE);
+        userEpisodes.setText(String.valueOf(item.getWatchedEps() + "/" + item.getEps()));
     }
 }

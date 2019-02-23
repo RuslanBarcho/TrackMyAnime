@@ -16,7 +16,7 @@ import io.vinter.trackmyanime.network.service.AnimeService;
 public class DetailViewModel extends ViewModel {
 
     public MutableLiveData<Anime> animeDetail = new MutableLiveData<>();
-    public MutableLiveData<String> objectId = new MutableLiveData<>();
+    public MutableLiveData<AnimeListItem> insertedAnime = new MutableLiveData<>();
 
     @SuppressLint("CheckResult")
     public void getAnimeDetail(int malId){
@@ -40,7 +40,7 @@ public class DetailViewModel extends ViewModel {
                 .subscribe(message -> {
                     item.setId(message.getMessage());
                     db.animeListDAO().insertAll(item);
-                    objectId.postValue(message.getMessage());
+                    insertedAnime.postValue(item);
                 }, e -> {
                     Log.e("Network", e.getMessage());
                 });
