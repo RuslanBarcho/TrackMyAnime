@@ -57,7 +57,8 @@ public class DetailActivity extends AppCompatActivity {
     void addToList(){
         Anime anime = viewModel.animeDetail.getValue();
         if (!inList & anime != null){
-            viewModel.addToMyList(preferences.getString("token", ""), new AnimeListItem(anime, "watching"), db);
+            AddDialogFragment dialogFragment = new AddDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "add_dialog");
         }
     }
 
@@ -114,6 +115,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void addToAnimeList(String status){
+        Anime anime = viewModel.animeDetail.getValue();
+        if (anime != null){
+            viewModel.addToMyList(preferences.getString("token", ""), new AnimeListItem(anime, status), db);
+        }
     }
 
     private void configUserEpisodes(AnimeListItem item){

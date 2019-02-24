@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,6 +54,7 @@ public class ProfileListFragment extends Fragment {
 
         for (AnimeListItem item: items) if (item.getStatus().equals(getArguments().getString("filter", "all")) |
                 getArguments().getString("filter", "all").equals("all")) list.add(item);
+        Collections.reverse(list);
 
         adapter = new AnimeListRecyclerAdapter(getContext(),list, (v, position) -> {
             Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -70,6 +72,7 @@ public class ProfileListFragment extends Fragment {
         List<AnimeListItem> list = new ArrayList<>();
         for (AnimeListItem item: items) if (item.getStatus().equals(getArguments().getString("filter", "all")) |
             getArguments().getString("filter", "all").equals("all")) list.add(item);
+        Collections.reverse(list);
         if (adapter != null) adapter.update(list);
     }
 

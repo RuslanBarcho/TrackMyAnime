@@ -104,6 +104,7 @@ public class ProfileFragment extends Fragment {
             if (item.getMalId() == position){
                 item.setWatchedEps(item.getWatchedEps() + 1);
                 if (item.getEps() != 0 & item.getEps() <= item.getWatchedEps()) item.setStatus("completed");
+                else item.setStatus("watching");
                 viewModel.updateAnime(preferences.getString("token", ""), item, db);
             }
         }

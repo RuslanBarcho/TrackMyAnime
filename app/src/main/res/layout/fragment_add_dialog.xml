@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_inset"
+    android:minWidth="350dp"
+    android:orientation="vertical"
+    tools:context=".ui.detail.AddDialogFragment">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Add to list"
+        android:textSize="24sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_PTW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Plan to watch"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radio_watching"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Watching"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/radio_completed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Completed"
+            android:textSize="16sp"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/dialog_add"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/controls_active"
+        android:text="Add" />
+</LinearLayout>
