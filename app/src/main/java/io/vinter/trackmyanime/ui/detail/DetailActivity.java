@@ -56,11 +56,19 @@ public class DetailActivity extends AppCompatActivity {
     @OnClick(R.id.animeDetailAddToList)
     void addToList(){
         Anime anime = viewModel.animeDetail.getValue();
-        if (!inList & anime != null){
+        if (!inList & anime != null) {
             AddDialogFragment dialogFragment = new AddDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "add_dialog");
+        } else if (animeListItem != null) {
+            animeListItem.setWatchedEps(animeListItem.getWatchedEps() + 1);
+            if (animeListItem.getEps() != 0 & animeListItem.getEps() <= animeListItem.getWatchedEps()) animeListItem.setStatus("completed");
+            else animeListItem.setStatus("watching");
+            viewModel.updateAnime(preferences.getString("token", ""), animeListItem, db);
         }
     }
+
+    @BindView(R.id.animeDetailAddToList)
+    Button add;
 
     @OnClick(R.id.detailBack)
     void goBack(){
@@ -107,11 +115,20 @@ public class DetailActivity extends AppCompatActivity {
 
         viewModel.insertedAnime.observe(this, insertedAnime -> {
             if (insertedAnime != null){
+                this.setResult(22);
                 inList = true;
                 animeListItem = insertedAnime;
                 Toast.makeText(this, "Added to your list", Toast.LENGTH_SHORT).show();
-                this.setResult(22);
                 configUserEpisodes(insertedAnime);
+            }
+        });
+
+        viewModel.update.observe(this, update -> {
+            if (update != null){
+                this.setResult(22);
+                Toast.makeText(this, update.first, Toast.LENGTH_SHORT).show();
+                configUserEpisodes(update.second);
+                viewModel.update.postValue(null);
             }
         });
 
@@ -125,6 +142,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void configUserEpisodes(AnimeListItem item){
+        if (item.getStatus().equals("completed")){
+           add.setVisibility(View.INVISIBLE);
+        }
         userEpisodes.setVisibility(View.VISIBLE);
         userEpisodes.setText(String.valueOf(item.getWatchedEps() + "/" + item.getEps()));
     }

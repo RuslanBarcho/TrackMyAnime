@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
+import android.util.Pair;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -17,6 +18,7 @@ public class DetailViewModel extends ViewModel {
 
     public MutableLiveData<Anime> animeDetail = new MutableLiveData<>();
     public MutableLiveData<AnimeListItem> insertedAnime = new MutableLiveData<>();
+    public MutableLiveData<Pair<String, AnimeListItem>> update = new MutableLiveData<>();
 
     @SuppressLint("CheckResult")
     public void getAnimeDetail(int malId){
@@ -41,6 +43,20 @@ public class DetailViewModel extends ViewModel {
                     item.setId(message.getMessage());
                     db.animeListDAO().insertAll(item);
                     insertedAnime.postValue(item);
+                }, e -> {
+                    Log.e("Network", e.getMessage());
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void updateAnime(String token, AnimeListItem newAnime, AppDatabase db){
+        NetModule.getAnimeListModule().create(AnimeService.class)
+                .updateAnime("Bearer " + token, newAnime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(message -> {
+                    db.animeListDAO().update(newAnime);
+                    update.postValue(new Pair<>(message.getMessage(), newAnime));
                 }, e -> {
                     Log.e("Network", e.getMessage());
                 });
