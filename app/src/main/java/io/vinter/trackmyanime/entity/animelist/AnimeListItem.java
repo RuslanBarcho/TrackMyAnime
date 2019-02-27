@@ -8,10 +8,12 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import io.vinter.trackmyanime.entity.detail.Anime;
 
 @Entity(tableName = "animelist")
-public class AnimeListItem {
+public class AnimeListItem implements Serializable {
     @NonNull
     @PrimaryKey
     @SerializedName("_id")

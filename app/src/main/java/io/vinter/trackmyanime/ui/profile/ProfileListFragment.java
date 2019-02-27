@@ -3,6 +3,7 @@ package io.vinter.trackmyanime.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,9 @@ public class ProfileListFragment extends Fragment {
     }
 
     public void setupRecycler(List<AnimeListItem> items, ItemClickListener addButtonListener){
+        Parcelable recyclerViewState = null;
+        if (adapter != null) recyclerViewState = animeListRecycler.getLayoutManager().onSaveInstanceState();
+
         List<AnimeListItem> list = new ArrayList<>();
 
         for (AnimeListItem item: items) if (item.getStatus().equals(getArguments().getString("filter", "all")) |
@@ -66,6 +70,8 @@ public class ProfileListFragment extends Fragment {
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);
         animeListRecycler.setLayoutAnimation(animation);
         animeListRecycler.setAdapter(adapter);
+
+        if (recyclerViewState != null) animeListRecycler.getLayoutManager().onRestoreInstanceState(recyclerViewState);
     }
 
     public void updateRecycler(List<AnimeListItem> items){

@@ -22,6 +22,7 @@ import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
 import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
 import io.vinter.trackmyanime.entity.detail.Anime;
+import io.vinter.trackmyanime.ui.dialog.EditEpisodesFragment;
 import io.vinter.trackmyanime.utils.GlideApp;
 
 public class DetailActivity extends AppCompatActivity {
@@ -60,10 +61,18 @@ public class DetailActivity extends AppCompatActivity {
             AddDialogFragment dialogFragment = new AddDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "add_dialog");
         } else if (animeListItem != null) {
-            animeListItem.setWatchedEps(animeListItem.getWatchedEps() + 1);
-            if (animeListItem.getEps() != 0 & animeListItem.getEps() <= animeListItem.getWatchedEps()) animeListItem.setStatus("completed");
-            else animeListItem.setStatus("watching");
-            viewModel.updateAnime(preferences.getString("token", ""), animeListItem, db);
+            addEpisodes(1);
+        }
+    }
+
+    @OnClick(R.id.animeDetailUserEps)
+    void editEpisodes() {
+        if (animeListItem != null){
+            Bundle bundle = new Bundle();
+            EditEpisodesFragment editEpisodes = new EditEpisodesFragment();
+            bundle.putSerializable("anime", animeListItem);
+            editEpisodes.setArguments(bundle);
+            editEpisodes.show(getSupportFragmentManager(), "edit_dialog");
         }
     }
 
@@ -141,9 +150,18 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    public void addEpisodes(int episodes){
+        animeListItem.setWatchedEps(animeListItem.getWatchedEps() + episodes);
+        if (animeListItem.getEps() != 0 & animeListItem.getEps() <= animeListItem.getWatchedEps()) animeListItem.setStatus("completed");
+        else animeListItem.setStatus("watching");
+        viewModel.updateAnime(preferences.getString("token", ""), animeListItem, db);
+    }
+
     private void configUserEpisodes(AnimeListItem item){
         if (item.getStatus().equals("completed")){
            add.setVisibility(View.INVISIBLE);
+        } else {
+            add.setVisibility(View.VISIBLE);
         }
         userEpisodes.setVisibility(View.VISIBLE);
         userEpisodes.setText(String.valueOf(item.getWatchedEps() + "/" + item.getEps()));

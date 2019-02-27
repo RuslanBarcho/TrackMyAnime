@@ -20,9 +20,11 @@ public class ProfileViewModel extends ViewModel {
 
     public MutableLiveData<List<AnimeListItem>> animes = new MutableLiveData<>();
     public MutableLiveData<String> update = new MutableLiveData<>();
+    public boolean loading = false;
 
     @SuppressLint("CheckResult")
     public void getAnimeList(String token, AppDatabase db){
+        loading = true;
         NetModule.getAnimeListModule().create(AnimeService.class)
                 .getAnimeList("Bearer " + token)
                 .subscribeOn(Schedulers.io())
@@ -31,9 +33,11 @@ public class ProfileViewModel extends ViewModel {
                 .subscribe(animes -> {
                     updateDatabase(db, animes);
                     this.animes.postValue(animes);
+                    loading = false;
                 }, e -> {
                     animes.postValue(db.animeListDAO().getAnimeList());
                     Log.e("Network", e.getMessage());
+                    loading = false;
                 });
     }
 

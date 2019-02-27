@@ -75,16 +75,14 @@ public class ProfileFragment extends Fragment {
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
 
-        if (viewModel.animes.getValue() == null & savedInstanceState == null)
+        if ((viewModel.animes.getValue() == null | savedInstanceState == null) & !viewModel.loading)
             viewModel.getAnimeList(preferences.getString("token", ""), db);
 
         viewModel.animes.observe(this, animeListItems -> {
             if (animeListItems != null){
                 List<Fragment> fragmentList = getChildFragmentManager().getFragments();
                 for(Fragment f: fragmentList){
-                    if (f instanceof ProfileListFragment) ((ProfileListFragment) f).setupRecycler(animeListItems, (v, position) -> {
-                        addEpisode(animeListItems, position);
-                    });
+                    if (f instanceof ProfileListFragment) ((ProfileListFragment) f).setupRecycler(animeListItems, (v, position) -> addEpisode(animeListItems, position));
                 }
             }
         });
