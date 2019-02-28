@@ -19,6 +19,7 @@ import io.vinter.trackmyanime.network.service.AnimeService;
 public class TopViewModel extends ViewModel {
 
     public MutableLiveData<List<Pair<List<AnimeTop>, String>>> tops = new MutableLiveData<>();
+    public boolean loading = false;
     List<Pair<List<AnimeTop>, String>> animeTopList = new ArrayList<>();
 
     @SuppressLint("CheckResult")
@@ -29,6 +30,7 @@ public class TopViewModel extends ViewModel {
 
     @SuppressLint("CheckResult")
     private void loadTops(String[] types, int i){
+        loading = true;
         NetModule.getRetrofit().create(AnimeService.class)
                 .getAnimeTop(1, types[i])
                 .subscribeOn(Schedulers.io())
@@ -38,11 +40,13 @@ public class TopViewModel extends ViewModel {
                     animeTopList.add(new Pair<>(list, types[i]));
                     if (animeTopList.size() == types.length) {
                         tops.postValue(animeTopList);
+                        loading = false;
                     } else {
                         loadTops(types, i + 1);
                     }
                 }, e -> {
                     Log.e("Network", e.getMessage());
+                    loading = false;
                 });
     }
 

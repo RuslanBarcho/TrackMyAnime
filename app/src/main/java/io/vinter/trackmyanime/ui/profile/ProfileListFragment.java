@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
 import io.vinter.trackmyanime.ui.detail.DetailActivity;
+import io.vinter.trackmyanime.utils.AnimeListClickListener;
 import io.vinter.trackmyanime.utils.AnimeListRecyclerAdapter;
 import io.vinter.trackmyanime.utils.ItemClickListener;
 
@@ -50,7 +51,7 @@ public class ProfileListFragment extends Fragment {
         return mRootView;
     }
 
-    public void setupRecycler(List<AnimeListItem> items, ItemClickListener addButtonListener){
+    public void setupRecycler(List<AnimeListItem> items, AnimeListClickListener animeListener){
         Parcelable recyclerViewState = null;
         if (adapter != null) recyclerViewState = animeListRecycler.getLayoutManager().onSaveInstanceState();
 
@@ -60,11 +61,7 @@ public class ProfileListFragment extends Fragment {
                 getArguments().getString("filter", "all").equals("all")) list.add(item);
         Collections.reverse(list);
 
-        adapter = new AnimeListRecyclerAdapter(getContext(),list, (v, position) -> {
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra("malId", position);
-            getActivity().startActivityForResult(intent, 22);
-        }, addButtonListener);
+        adapter = new AnimeListRecyclerAdapter(getContext(),list, animeListener);
 
         animeListRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);

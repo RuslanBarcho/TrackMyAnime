@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
     Button userEpisodes;
 
     @OnClick(R.id.animeDetailAddToList)
-    void addToList(){
+    void add(){
         Anime anime = viewModel.animeDetail.getValue();
         if (!inList & anime != null) {
             AddDialogFragment dialogFragment = new AddDialogFragment();
@@ -146,7 +146,12 @@ public class DetailActivity extends AppCompatActivity {
     public void addToAnimeList(String status){
         Anime anime = viewModel.animeDetail.getValue();
         if (anime != null){
-            viewModel.addToMyList(preferences.getString("token", ""), new AnimeListItem(anime, status), db);
+            if (status.equals("completed") & anime.getEpisodes() != null) {
+                AnimeListItem toAdd = new AnimeListItem(anime, status);
+                toAdd.setWatchedEps(anime.getEpisodes());
+                viewModel.addToMyList(preferences.getString("token", ""), toAdd, db);
+            } else if (!status.equals("completed")) viewModel.addToMyList(preferences.getString("token", ""), new AnimeListItem(anime, status), db);
+            else Toast.makeText(this, "Cannot set as completed", Toast.LENGTH_SHORT).show();
         }
     }
 

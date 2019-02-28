@@ -41,6 +41,7 @@ public class AddDialogFragment extends DialogFragment {
                 dialog.dismiss();
                 break;
             case R.id.radio_completed:
+                ((DetailActivity) getActivity()).addToAnimeList("completed");
                 dialog.dismiss();
                 break;
                 default:

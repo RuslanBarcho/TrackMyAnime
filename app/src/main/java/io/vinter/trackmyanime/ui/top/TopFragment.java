@@ -53,7 +53,7 @@ public class TopFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(TopViewModel.class);
         ButterKnife.bind(this, mRootView);
 
-        if (viewModel.tops.getValue() == null | savedInstanceState == null) viewModel.getAnimeTops(types);
+        if (viewModel.tops.getValue() == null & !viewModel.loading) viewModel.getAnimeTops(types);
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override

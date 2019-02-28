@@ -4,6 +4,7 @@ package io.vinter.trackmyanime.ui.profile;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
 import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
+import io.vinter.trackmyanime.ui.detail.DetailActivity;
 import io.vinter.trackmyanime.utils.ProfileViewPagerAdapter;
 
 /**
@@ -47,7 +49,6 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -75,14 +76,27 @@ public class ProfileFragment extends Fragment {
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
 
-        if ((viewModel.animes.getValue() == null | savedInstanceState == null) & !viewModel.loading)
+        if (viewModel.animes.getValue() == null & !viewModel.loading)
             viewModel.getAnimeList(preferences.getString("token", ""), db);
 
         viewModel.animes.observe(this, animeListItems -> {
             if (animeListItems != null){
                 List<Fragment> fragmentList = getChildFragmentManager().getFragments();
                 for(Fragment f: fragmentList){
-                    if (f instanceof ProfileListFragment) ((ProfileListFragment) f).setupRecycler(animeListItems, (v, position) -> addEpisode(animeListItems, position));
+                    if (f instanceof ProfileListFragment) ((ProfileListFragment) f).setupRecycler(animeListItems, (malId, clickMode) -> {
+                        switch (clickMode){
+                            case 0:
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra("malId", malId);
+                                getActivity().startActivityForResult(intent, 22);
+                                break;
+                            case 1:
+                                addEpisode(animeListItems, malId);
+                                break;
+                            case 2:
+                                Toast.makeText(getContext(), "Here will be episodes dialog", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
