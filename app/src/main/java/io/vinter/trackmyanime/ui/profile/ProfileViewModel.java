@@ -42,7 +42,12 @@ public class ProfileViewModel extends ViewModel {
     }
 
     @SuppressLint("CheckResult")
-    public void updateAnime(String token, AnimeListItem newAnime, AppDatabase db){
+    public void updateAnime(String token, int malId, int episodes, AppDatabase db){
+        AnimeListItem newAnime = db.animeListDAO().getAnimeByMalID(malId);
+        newAnime.setWatchedEps(newAnime.getWatchedEps() + episodes);
+        if (newAnime.getEps() != 0 & newAnime.getEps() <= newAnime.getWatchedEps()) newAnime.setStatus("completed");
+        else newAnime.setStatus("watching");
+
         NetModule.getAnimeListModule().create(AnimeService.class)
                 .updateAnime("Bearer " + token, newAnime)
                 .subscribeOn(Schedulers.io())

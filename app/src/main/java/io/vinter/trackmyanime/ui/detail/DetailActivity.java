@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     boolean inList = false;
     SharedPreferences preferences;
     AnimeListItem animeListItem;
+    EditEpisodesFragment editEpisodes;
 
     @BindView(R.id.animeDetailPicture)
     LoaderImageView art;
@@ -69,7 +70,8 @@ public class DetailActivity extends AppCompatActivity {
     void editEpisodes() {
         if (animeListItem != null){
             Bundle bundle = new Bundle();
-            EditEpisodesFragment editEpisodes = new EditEpisodesFragment();
+            editEpisodes = new EditEpisodesFragment();
+            editEpisodes.setUpdateListener((id, ep )-> addEpisodes(ep));
             bundle.putSerializable("anime", animeListItem);
             editEpisodes.setArguments(bundle);
             editEpisodes.show(getSupportFragmentManager(), "edit_dialog");
@@ -140,6 +142,11 @@ public class DetailActivity extends AppCompatActivity {
                 viewModel.update.postValue(null);
             }
         });
+
+        if (savedInstanceState != null){
+            editEpisodes = (EditEpisodesFragment) getSupportFragmentManager().findFragmentByTag("edit_dialog");
+            if (editEpisodes != null) editEpisodes.setUpdateListener((id, ep )-> addEpisodes(ep));
+        }
 
     }
 

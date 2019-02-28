@@ -24,8 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
-import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
 import io.vinter.trackmyanime.ui.detail.DetailActivity;
+import io.vinter.trackmyanime.ui.dialog.EditEpisodesFragment;
 import io.vinter.trackmyanime.utils.ProfileViewPagerAdapter;
 
 /**
@@ -38,6 +38,7 @@ public class ProfileFragment extends Fragment {
     ProfileViewPagerAdapter adapter;
     ProfileViewModel viewModel;
     SharedPreferences preferences;
+    EditEpisodesFragment editEpisodes;
     AppDatabase db;
 
     @BindView(R.id.profile_viewpager)
@@ -80,10 +81,11 @@ public class ProfileFragment extends Fragment {
             viewModel.getAnimeList(preferences.getString("token", ""), db);
 
         viewModel.animes.observe(this, animeListItems -> {
-            if (animeListItems != null){
+            if (animeListItems != null) {
                 List<Fragment> fragmentList = getChildFragmentManager().getFragments();
                 for(Fragment f: fragmentList){
-                    if (f instanceof ProfileListFragment) ((ProfileListFragment) f).setupRecycler(animeListItems, (malId, clickMode) -> {
+                    if (f instanceof ProfileListFragment)
+                        ((ProfileListFragment) f).setupRecycler(db.animeListDAO().getAnimeList(), (malId, clickMode) -> {
                         switch (clickMode){
                             case 0:
                                 Intent intent = new Intent(getActivity(), DetailActivity.class);
@@ -91,10 +93,15 @@ public class ProfileFragment extends Fragment {
                                 getActivity().startActivityForResult(intent, 22);
                                 break;
                             case 1:
-                                addEpisode(animeListItems, malId);
+                                addEpisodes(malId, 1);
                                 break;
                             case 2:
-                                Toast.makeText(getContext(), "Here will be episodes dialog", Toast.LENGTH_SHORT).show();
+                                Bundle bundle = new Bundle();
+                                editEpisodes = new EditEpisodesFragment();
+                                editEpisodes.setUpdateListener(this::addEpisodes);
+                                bundle.putSerializable("anime", db.animeListDAO().getAnimeByMalID(malId));
+                                editEpisodes.setArguments(bundle);
+                                editEpisodes.show(getChildFragmentManager(), "edit_dialog");
                         }
                     });
                 }
@@ -108,18 +115,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        if (savedInstanceState != null){
+            editEpisodes = (EditEpisodesFragment) getChildFragmentManager().findFragmentByTag("edit_dialog");
+            if (editEpisodes != null) editEpisodes.setUpdateListener(this::addEpisodes);
+        }
+
         return mRootView;
     }
 
-    private void addEpisode(List<AnimeListItem> animeListItems, int position){
-        for(AnimeListItem item: animeListItems){
-            if (item.getMalId() == position){
-                item.setWatchedEps(item.getWatchedEps() + 1);
-                if (item.getEps() != 0 & item.getEps() <= item.getWatchedEps()) item.setStatus("completed");
-                else item.setStatus("watching");
-                viewModel.updateAnime(preferences.getString("token", ""), item, db);
-            }
-        }
+    private void addEpisodes(int malId, int episodes){
+        viewModel.updateAnime(preferences.getString("token", ""),malId, episodes , db);
     }
 
     public void update(boolean hardReset){

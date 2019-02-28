@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.entity.animelist.AnimeListItem;
-import io.vinter.trackmyanime.ui.detail.DetailActivity;
+import io.vinter.trackmyanime.utils.AnimeEditListener;
 
 /**
  * Fragment for edit user's watched EPS manually
@@ -35,7 +35,7 @@ public class EditEpisodesFragment extends DialogFragment {
     View mRootView;
     public Dialog dialog;
     AnimeListItem anime;
-    int mode = 0;
+    AnimeEditListener listener;
 
     @BindView(R.id.edit_episodes)
     Button episodes;
@@ -49,16 +49,9 @@ public class EditEpisodesFragment extends DialogFragment {
     @OnClick(R.id.edit_update)
     void edit(){
         Integer newEpisodes = Integer.valueOf(watchedEpisodes.getText().toString());
-        if (anime != null){
+        if (anime != null & listener != null){
             if ((anime.getEps() != 0 & anime.getEps() >= newEpisodes) | (anime.getEps() == 0)){
-                switch (mode){
-                    case 0:
-                        ((DetailActivity) getActivity()).addEpisodes(newEpisodes - anime.getWatchedEps());
-                        break;
-                    case 1:
-
-                        break;
-                }
+                listener.onEdit(anime.getMalId(),newEpisodes - anime.getWatchedEps());
                 dialog.dismiss();
             } else {
                 Toast.makeText(getContext(), "Too many episodes :/", Toast.LENGTH_SHORT).show();
@@ -111,6 +104,10 @@ public class EditEpisodesFragment extends DialogFragment {
         window.setAttributes(wlp);
         window.getAttributes().windowAnimations = R.style.DialogAnimation;
         return dialog;
+    }
+
+    public void setUpdateListener(AnimeEditListener listener){
+        this.listener = listener;
     }
 
 }
