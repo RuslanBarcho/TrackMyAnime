@@ -31,7 +31,7 @@
             android:layout_marginLeft="24dp"
             android:layout_weight="1"
             android:text="Episodes"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                 android:inputType="number"
                 android:paddingLeft="16dp"
                 android:textColor="@color/darker_color"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/edit_episodes"
@@ -59,7 +59,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/controls_active"
                 android:text="9999"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -67,7 +67,7 @@
         android:id="@+id/edit_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginLeft="24dp"
         android:text="Status: "
         android:textSize="18sp" />
@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/controls_active"
         android:text="Update" />
 
