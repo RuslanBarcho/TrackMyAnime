@@ -3,7 +3,6 @@ package io.vinter.trackmyanime.ui.profile;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.os.Handler;
 import android.util.Log;
 
 import java.util.List;
@@ -54,6 +53,21 @@ public class ProfileViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(message -> {
                     db.animeListDAO().update(newAnime);
+                    update.postValue(message.getMessage());
+                }, e -> {
+                    Log.e("Network", e.getMessage());
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void deleteAnime(String token, int malId, AppDatabase db){
+        AnimeListItem animeToDelete = db.animeListDAO().getAnimeByMalID(malId);
+        NetModule.getAnimeListModule().create(AnimeService.class)
+                .deleteAnime("Bearer " + token, animeToDelete)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(message -> {
+                    db.animeListDAO().delete(animeToDelete);
                     update.postValue(message.getMessage());
                 }, e -> {
                     Log.e("Network", e.getMessage());

@@ -47,8 +47,10 @@ public class AnimeListRecyclerAdapter extends RecyclerView.Adapter<AnimeListRecy
                 .error(R.color.colorInactive)
                 .transforms(new CenterCrop(), new RoundedCorners(15))
                 .into(holder.art);
-        holder.art.setOnClickListener(view -> {
-            listener.onAnimeClick(animeList.get(i).getMalId(), 0);
+        holder.art.setOnClickListener(view -> listener.onAnimeClick(animeList.get(i).getMalId(), 0));
+        holder.art.setOnLongClickListener(view -> {
+            listener.onAnimeClick(animeList.get(i).getMalId(), 4);
+            return true;
         });
         holder.title.setText(animeList.get(i).getTitle());
         holder.eps.setText(String.valueOf(animeList.get(i).getWatchedEps() + "/" + animeList.get(i).getEps()));
@@ -58,12 +60,8 @@ public class AnimeListRecyclerAdapter extends RecyclerView.Adapter<AnimeListRecy
         } else {
             holder.add.setVisibility(View.VISIBLE);
         }
-        holder.add.setOnClickListener(view -> {
-            listener.onAnimeClick(animeList.get(i).getMalId(), 1);
-        });
-        holder.eps.setOnClickListener(view -> {
-            listener.onAnimeClick(animeList.get(i).getMalId(), 2);
-        });
+        holder.add.setOnClickListener(view -> listener.onAnimeClick(animeList.get(i).getMalId(), 1));
+        holder.eps.setOnClickListener(view -> listener.onAnimeClick(animeList.get(i).getMalId(), 2));
     }
 
     public void update(List<AnimeListItem> newItems){

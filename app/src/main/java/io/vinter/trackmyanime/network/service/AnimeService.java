@@ -33,4 +33,7 @@ public interface AnimeService {
 
     @POST("/anime")
     Single<Message> addAnimeToList(@Header("Authorization") String token, @Body AnimeListItem anime);
+
+    @POST("/anime/delete")
+    Single<Message> deleteAnime(@Header("Authorization") String token, @Body AnimeListItem anime);
 }

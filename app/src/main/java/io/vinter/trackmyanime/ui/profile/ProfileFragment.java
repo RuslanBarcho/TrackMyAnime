@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
 import io.vinter.trackmyanime.ui.detail.DetailActivity;
+import io.vinter.trackmyanime.ui.dialog.DeleteAnimeFragment;
 import io.vinter.trackmyanime.ui.dialog.EditEpisodesFragment;
 import io.vinter.trackmyanime.utils.ProfileViewPagerAdapter;
 
@@ -47,9 +48,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_tabs)
     SmartTabLayout tabLayout;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    public ProfileFragment() { }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -102,6 +101,15 @@ public class ProfileFragment extends Fragment {
                                 bundle.putSerializable("anime", db.animeListDAO().getAnimeByMalID(malId));
                                 editEpisodes.setArguments(bundle);
                                 editEpisodes.show(getChildFragmentManager(), "edit_dialog");
+                                break;
+                            case 4:
+                                Bundle bundleForDelete = new Bundle();
+                                bundleForDelete.putInt("malId", malId);
+                                DeleteAnimeFragment deleteAnimeFragment = new DeleteAnimeFragment();
+                                deleteAnimeFragment.setTargetFragment(this, 0);
+                                deleteAnimeFragment.setArguments(bundleForDelete);
+                                deleteAnimeFragment.show(getFragmentManager(), "delete_dialog");
+                                break;
                         }
                     });
                 }
@@ -124,7 +132,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void addEpisodes(int malId, int episodes){
-        viewModel.updateAnime(preferences.getString("token", ""),malId, episodes , db);
+        viewModel.updateAnime(preferences.getString("token", ""), malId, episodes , db);
+    }
+
+    public void delete(int malId){
+        viewModel.deleteAnime(preferences.getString("token", ""), malId, db);
     }
 
     public void update(boolean hardReset){

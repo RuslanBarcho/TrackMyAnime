@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_button)
     public void login(){
+        loginButton.setText("Loading");
         viewModel.getToken(new LoginForm(loginField.getText().toString(), passwordField.getText().toString()));
     }
 
