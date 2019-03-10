@@ -19,9 +19,11 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.vinter.trackmyanime.R;
 import io.vinter.trackmyanime.database.AppDatabase;
 import io.vinter.trackmyanime.ui.detail.DetailActivity;
@@ -47,6 +49,11 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.profile_tabs)
     SmartTabLayout tabLayout;
+
+    @OnClick(R.id.profile_open_stats)
+    void openStats(){
+        Objects.requireNonNull(getActivity()).startActivityForResult(new Intent(getActivity(), ProfileStatsActivity.class), 24);
+    }
 
     public ProfileFragment() { }
 
