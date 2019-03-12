@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context=".ui.detail.DetailActivity">
 
     <RelativeLayout
@@ -15,11 +17,10 @@
 
         <ImageButton
             android:id="@+id/detailBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -32,12 +33,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_toEndOf="@+id/detailBack"
-            android:layout_weight="0"
             android:gravity="center_vertical"
             android:text="Detail"
             android:textSize="24sp" />
     </RelativeLayout>
-
 
 
     <android.support.v4.widget.NestedScrollView
@@ -64,10 +63,9 @@
                     android:layout_width="100dp"
                     android:layout_height="135dp"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="24dp"
                     android:layout_weight="0"
-                    android:foreground="@drawable/image_ripple"/>
+                    android:foreground="@drawable/image_ripple" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,7 +77,6 @@
                         android:id="@+id/animeDetailTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
                         android:minWidth="60dp"
                         android:textColor="@android:color/background_light"
                         android:textSize="24sp" />
@@ -88,7 +85,6 @@
                         android:id="@+id/animeDetailJapanTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
                         android:layout_marginTop="8dp"
                         android:minWidth="60dp"
                         android:textSize="14sp" />
@@ -97,7 +93,6 @@
                         android:id="@+id/animeDetailEpisodes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
                         android:layout_marginTop="8dp"
                         android:minWidth="60dp"
                         android:textSize="14sp" />
@@ -115,7 +110,6 @@
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/controls_active"
                     android:foreground="@drawable/ic_add"
@@ -146,7 +140,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/controls_active"
@@ -166,7 +159,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/animeDetailScore"
                     android:layout_below="@+id/animeDetailUserEps"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:minLines="4"
                     android:minWidth="100dp" />

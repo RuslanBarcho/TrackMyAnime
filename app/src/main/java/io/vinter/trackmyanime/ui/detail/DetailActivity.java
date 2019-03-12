@@ -171,11 +171,25 @@ public class DetailActivity extends AppCompatActivity {
 
     private void configUserEpisodes(AnimeListItem item){
         if (item.getStatus().equals("completed")){
-           add.setVisibility(View.INVISIBLE);
+           setDimensions(add, 0, 36);
         } else {
-            add.setVisibility(View.VISIBLE);
+            setDimensions(add, 36, 36);
         }
         userEpisodes.setVisibility(View.VISIBLE);
         userEpisodes.setText(String.valueOf(item.getWatchedEps() + "/" + item.getEps()));
+    }
+
+    private int dpToPx(int dp) {
+        float density = getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
+    }
+
+    private void setDimensions(View view, int width, int height){
+        android.view.ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = dpToPx(width);
+        params.height = dpToPx(height);
+        view.setLayoutParams(params);
     }
 }
