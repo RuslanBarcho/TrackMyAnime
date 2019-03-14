@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -83,6 +84,21 @@ public class TopFragment extends Fragment {
                 LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_animation_fall_down);
                 recyclerView.setLayoutAnimation(animation);
                 recyclerView.setAdapter(adapter);
+            }
+        });
+
+        viewModel.error.observe(this, error -> {
+            if (error != null){
+                progressBar.setVisibility(View.GONE);
+                Snackbar snackbar = Snackbar.make(mRootView.findViewById(R.id.topSnackbar), error, Snackbar.LENGTH_INDEFINITE)
+                        .setActionTextColor(getResources().getColor(R.color.colorAccent));
+                snackbar.setAction("Retry", snackView -> {
+                    snackbar.dismiss();
+                    progressBar.setVisibility(View.VISIBLE);
+                    viewModel.getAnimeTops(types);
+                });
+                snackbar.show();
+                viewModel.error.postValue(null);
             }
         });
 

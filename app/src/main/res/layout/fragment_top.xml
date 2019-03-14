@@ -31,6 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true" />
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/topSnackbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </LinearLayout>
