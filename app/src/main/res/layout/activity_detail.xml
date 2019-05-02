@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     tools:context=".ui.detail.DetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_weight="0">
 
         <ImageButton
@@ -21,9 +21,7 @@
             android:layout_height="56dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:background="@drawable/ripple_transparent"
             android:src="?attr/homeAsUpIndicator" />
 
         <TextView
@@ -31,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_toEndOf="@+id/detailBack"
             android:gravity="center_vertical"
             android:text="Detail"
@@ -53,10 +51,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_weight="0"
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
-                android:paddingTop="16dp">
+                android:paddingTop="8dp">
 
                 <com.elyeproj.loaderviewlibrary.LoaderImageView
                     android:id="@+id/animeDetailPicture"
@@ -110,6 +110,7 @@
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/controls_active"
                     android:foreground="@drawable/ic_add"
@@ -140,6 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
                     android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/controls_active"
@@ -159,9 +161,29 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/animeDetailScore"
                     android:layout_below="@+id/animeDetailUserEps"
+                    android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:minLines="4"
                     android:minWidth="100dp" />
+
+                <TextView
+                    android:id="@+id/detail_songs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/animeDetailDescription"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Songs"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/songs_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/detail_songs_title" />
 
             </RelativeLayout>
         </LinearLayout>
